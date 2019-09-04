@@ -17,10 +17,11 @@
 ## Usage：
 1 server# mosquitto -d
 2 server# make; mqtt2modbus &
-
 3 client# mqtt.fx 进行mqtt subscribe and publish
+
 3.1 plc/mqtt4modbus/oper/get
     {"identifier":"y410"}
+
 3.2 plc/mqtt4modbus/oper/get/ok
     {"code":0,"identifier":"y410","address":"0x2089","label":"SV 0NP KOMORA STR","slaveid":17}
 3.3 plc/mqtt4modbus/oper/set
