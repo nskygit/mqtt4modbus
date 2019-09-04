@@ -1,5 +1,5 @@
 # mqtt4modbus
-# 基于原项目https://github.com/hubpav/mqtt2modbus ([**Pavel Hübner**]). Thanks!
+基于原项目https://github.com/hubpav/mqtt2modbus ([**Pavel Hübner**]). Thanks!
 
 ## Functions
 1 支持通过mqtt对modbus从机进行管理
