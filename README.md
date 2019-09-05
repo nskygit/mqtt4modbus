@@ -53,7 +53,7 @@
 
 * 3.7 plc/mqtt4modbus/y410/toggle
 
-[Reply  ] plc/mqtt4modbus/y410/toggle/ok  
+    [Reply  ] plc/mqtt4modbus/y410/toggle/ok  
 
 ## Refer
     https://github.com/hubpav/mqtt2modbus ([**Pavel Hübner**]).
