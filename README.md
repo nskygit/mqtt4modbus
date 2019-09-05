@@ -35,8 +35,7 @@
     [payload] {"identifier":"all"}  
 
     [Reply  ] plc/mqtt4modbus/oper/get/ok  
-    [payload] {"code":0,"all":[{"identifier":"y402","address":"0x2081","label":"SV 1NP SCHODY","slaveid":17},{"identifier":"y401","address":"0x2080","label":"SV 2NP KUCHYN LINKA","slaveid":17},{"identifier":"y403","address":"0x2082","label":"SV 1NP OBYVAK KRB STR","slaveid":17},{"identifier":"y404","address":"0x2083","label":"SV 1NP OBYVAK KRB KRJ","slaveid":17},{"identifier":"y405","address":"0x2084","label":"SV 2NP LOZNICE KRJ","slaveid":17},{"identifier":"y406","address":"0x2085","label":"SV 2NP LOZNICE STR","slaveid":17},{"identifier":"y407","address":"0x2086","label":"SV 1NP WC","slaveid":17},{"identifier":"y409","address":"0x2088","label":"SV 0NP KOMORA KRJ","slaveid":17},{"identifier":"y410","address":"0x2089","label":"SV {"identifier":"c203","address":"0x40ca","label":"MB ERROR","slaveid":17}]}* 3.3 plc/mqtt4modbus/oper/set
-{"identifier":"y410","address":"0x2189"}  
+    [payload] {"code":0,"all":[{"identifier":"y402","address":"0x2081","label":"SV 1NP SCHODY","slaveid":17},{"identifier":"y401","address":"0x2080","label":"SV 2NP KUCHYN LINKA","slaveid":17},{"identifier":"y403","address":"0x2082","label":"SV 1NP OBYVAK KRB STR","slaveid":17},{"identifier":"y404","address":"0x2083","label":"SV 1NP OBYVAK KRB KRJ","slaveid":17},{"identifier":"y405","address":"0x2084","label":"SV 2NP LOZNICE KRJ","slaveid":17},{"identifier":"y406","address":"0x2085","label":"SV 2NP LOZNICE STR","slaveid":17},{"identifier":"y407","address":"0x2086","label":"SV 1NP WC","slaveid":17},{"identifier":"y409","address":"0x2088","label":"SV 0NP KOMORA KRJ","slaveid":17},{"identifier":"y410","address":"0x2089","label":"SV {"identifier":"c203","address":"0x40ca","label":"MB ERROR","slaveid":17}]}
 
 **3.3 plc/mqtt4modbus/oper/put**
 
