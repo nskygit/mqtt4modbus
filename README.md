@@ -15,8 +15,8 @@
 
 ## Usage：
 * 1 server# mosquitto -d
-* 2 server# mqtt4modbus &
-*
+* 2 server# mqtt4modbus &  
+
 * 3 client# mqtt.fx 进行mqtt subscribe and publish
 * 3.1 plc/mqtt4modbus/oper/get  
      [payload] {"identifier":"y410"}  
@@ -48,5 +48,5 @@
 * 3.7 plc/mqtt4modbus/y410/toggle  
      [Reply  ] plc/mqtt4modbus/y410/toggle/ok  
 
-## Thanks
-基于原项目https://github.com/hubpav/mqtt2modbus ([**Pavel Hübner**]).
+## Refer
+    https://github.com/hubpav/mqtt2modbus ([**Pavel Hübner**]).
