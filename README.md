@@ -13,7 +13,7 @@
 * [**libmodbus**](http://libmodbus.org/) - Modbus library
 * **GCC + Make** - GNU C Compiler and build automation tool
 
-## Usage：
+## Usage
 * 1 server# mosquitto -d
 * 2 server# mqtt4modbus &  
 
@@ -51,9 +51,9 @@
 
 [Reply  ] plc/mqtt4modbus/y410/set/ok
 
-* 3.7 plc/mqtt4modbus/y410/toggle
+** 3.7 plc/mqtt4modbus/y410/toggle **
 
-    [Reply  ] plc/mqtt4modbus/y410/toggle/ok
+    plc/mqtt4modbus/y410/toggle/ok
 
 ## Refer
     https://github.com/hubpav/mqtt2modbus ([**Pavel Hübner**]).
