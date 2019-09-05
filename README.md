@@ -1,5 +1,5 @@
 # mqtt4modbus
-支持通过mqtt对modbus tcp/rtu从机,进行管理(show/save/get/set/toggle)
+支持通过mqtt对modbus tcp/rtu从机, 进行管理(show/save/get/set/toggle)
  ![image](https://github.com/nskygit/mqtt4modbus/raw/master/mqtt4modbus.png)
 * 1 支持通过mqtt对modbus从机进行管理
 * 2 modbus连接从机支持tcp和rtu
