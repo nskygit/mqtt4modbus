@@ -14,7 +14,7 @@
 
 ## Usage：
 * 1 server# mosquitto -d
-* 2 server# make; mqtt2modbus &
+* 2 server# mqtt4modbus &
 
 * 3 client# mqtt.fx 进行mqtt subscribe and publish
 * 3.1 plc/mqtt4modbus/oper/get
