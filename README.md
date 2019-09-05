@@ -20,34 +20,40 @@
 * 3 client# mqtt.fx 进行mqtt subscribe and publish
 * 3.1 plc/mqtt4modbus/oper/get  
      [payload] {"identifier":"y410"}  
-     [Reply  ] plc/mqtt4modbus/oper/get/ok  
-     [payload] {"code":0,"identifier":"y410","address":"0x2089","label":"SV 0NP KOMORA STR","slaveid":17}  
+
+[Reply  ] plc/mqtt4modbus/oper/get/ok  
+[payload] {"code":0,"identifier":"y410","address":"0x2089","label":"SV 0NP KOMORA STR","slaveid":17}  
 
 * 3.2 plc/mqtt4modbus/oper/get  
-     [payload] {"identifier":"all"}  
-     [Reply  ] plc/mqtt4modbus/oper/get/ok  
-     [payload] {"code":0,"all":[{"identifier":"y402","address":"0x2081","label":"SV 1NP SCHODY","slaveid":17},{"identifier":"y401","address":"0x2080","label":"SV 2NP KUCHYN LINKA","slaveid":17},{"identifier":"y403","address":"0x2082","label":"SV 1NP OBYVAK KRB STR","slaveid":17},{"identifier":"y404","address":"0x2083","label":"SV 1NP OBYVAK KRB KRJ","slaveid":17},{"identifier":"y405","address":"0x2084","label":"SV 2NP LOZNICE KRJ","slaveid":17},{"identifier":"y406","address":"0x2085","label":"SV 2NP LOZNICE STR","slaveid":17},{"identifier":"y407","address":"0x2086","label":"SV 1NP WC","slaveid":17},{"identifier":"y409","address":"0x2088","label":"SV 0NP KOMORA KRJ","slaveid":17},{"identifier":"y410","address":"0x2089","label":"SV {"identifier":"c203","address":"0x40ca","label":"MB ERROR","slaveid":17}]}* 3.3 plc/mqtt4modbus/oper/set
+     [payload] {"identifier":"all"}
+
+[Reply  ] plc/mqtt4modbus/oper/get/ok  
+[payload] {"code":0,"all":[{"identifier":"y402","address":"0x2081","label":"SV 1NP SCHODY","slaveid":17},{"identifier":"y401","address":"0x2080","label":"SV 2NP KUCHYN LINKA","slaveid":17},{"identifier":"y403","address":"0x2082","label":"SV 1NP OBYVAK KRB STR","slaveid":17},{"identifier":"y404","address":"0x2083","label":"SV 1NP OBYVAK KRB KRJ","slaveid":17},{"identifier":"y405","address":"0x2084","label":"SV 2NP LOZNICE KRJ","slaveid":17},{"identifier":"y406","address":"0x2085","label":"SV 2NP LOZNICE STR","slaveid":17},{"identifier":"y407","address":"0x2086","label":"SV 1NP WC","slaveid":17},{"identifier":"y409","address":"0x2088","label":"SV 0NP KOMORA KRJ","slaveid":17},{"identifier":"y410","address":"0x2089","label":"SV {"identifier":"c203","address":"0x40ca","label":"MB ERROR","slaveid":17}]}* 3.3 plc/mqtt4modbus/oper/set
 {"identifier":"y410","address":"0x2189"}  
 
 * 3.3 plc/mqtt4modbus/oper/put  
-     [payload] {"identifier":"y410","address":"0x2189","label":"test","slaveid":1}  
-     [Reply  ] plc/mqtt4modbus/oper/put/ok  
-     [payload] {"code":0,"identifier":"y410","address":"0x2189","label":"test","slaveid":1}  
+    [payload] {"identifier":"y410","address":"0x2189","label":"test","slaveid":1}
 
-* 3.4 plc/mqtt4modbus/oper/save  
-     [Reply  ] plc/mqtt4modbus/oper/save/ok  
+[Reply  ] plc/mqtt4modbus/oper/put/ok  
+[payload] {"code":0,"identifier":"y410","address":"0x2189","label":"test","slaveid":1}  
 
-* 3.5 plc/mqtt4modbus/y410/get  
-     [Reply  ] plc/mqtt4modbus/y410/get/ok  
-     [payload] false  
+* 3.4 plc/mqtt4modbus/oper/save
+
+[Reply  ] plc/mqtt4modbus/oper/save/ok  
+
+* 3.5 plc/mqtt4modbus/y410/get
+
+[Reply  ] plc/mqtt4modbus/y410/get/ok  
+[payload] false  
 
 * 3.6 plc/mqtt4modbus/y410/set  
-    [payload] true  
-    [Reply  ] plc/mqtt4modbus/y410/set/ok  
+    [payload] true
+
+[Reply  ] plc/mqtt4modbus/y410/set/ok  
 
 * 3.7 plc/mqtt4modbus/y410/toggle
 
-    [Reply  ] plc/mqtt4modbus/y410/toggle/ok  
+[Reply  ] plc/mqtt4modbus/y410/toggle/ok  
 
 ## Refer
     https://github.com/hubpav/mqtt2modbus ([**Pavel Hübner**]).
