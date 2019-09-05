@@ -1,7 +1,5 @@
 # mqtt4modbus
-基于原项目https://github.com/hubpav/mqtt2modbus ([**Pavel Hübner**]). Thanks!
-
-## Functions
+支持通过mqtt对modbus tcp/rtu从机,进行管理(show/save/get/set/toggle)
 * 1 支持通过mqtt对modbus从机进行管理
 * 2 modbus连接从机支持tcp和rtu
 * 3 配置文件支持csv的加载和保存
@@ -29,3 +27,6 @@
 * 3.6 plc/mqtt4modbus/y410/set
 * 3.7 plc/mqtt4modbus/y410/get
 * 3.8 plc/mqtt4modbus/y410/toggle
+
+## Thanks
+基于原项目https://github.com/hubpav/mqtt2modbus ([**Pavel Hübner**]).
