@@ -129,30 +129,30 @@ static inline unsigned int get_uint(const void *s, size_t len)
 
 static inline int char2int(char hex) 
 {
-    if (hex>='0' && hex <='9')
-        return hex - '0';
-    if (hex>='A' && hex <= 'F')
-        return hex-'A'+10;
-    if(hex>='a' && hex <= 'f')
-        return hex-'a'+10;
-    return 0;
+	if (hex>='0' && hex <='9')
+		return hex - '0';
+	if (hex>='A' && hex <= 'F')
+		return hex-'A'+10;
+	if(hex>='a' && hex <= 'f')
+		return hex-'a'+10;
+	return 0;
 }
 
 static inline int hex2int(char *hex, int len) 
 {
-    if ((hex[0] == '0') && (hex[1] == 'x') ) {
-        if (3 == len)
-            return char2int(hex[2]);
-        else if (4 == len)
-            return (char2int(hex[2]) << 4) + char2int(hex[3]);
-        else if (5 == len)
-            return (char2int(hex[2]) << 8) + (char2int(hex[3]) << 4) 
-                    + char2int(hex[4]);
-        else if (6 == len)
-            return (char2int(hex[2])<< 12) + (char2int(hex[3]) << 8)
-                    + (char2int(hex[4]) << 4) + char2int(hex[5]) ;	
-    }
-    return 0;
+	if ((hex[0] == '0') && (hex[1] == 'x') ) {
+		if (3 == len)
+			return char2int(hex[2]);
+		else if (4 == len)
+			return (char2int(hex[2]) << 4) + char2int(hex[3]);
+		else if (5 == len)
+			return (char2int(hex[2]) << 8) + (char2int(hex[3]) << 4) 
+				+ char2int(hex[4]);
+		else if (6 == len)
+			return (char2int(hex[2])<< 12) + (char2int(hex[3]) << 8)
+				+ (char2int(hex[4]) << 4) + char2int(hex[5]) ;	
+    	}
+	return 0;
 }
 
 static void csv_plc_add_cb1(void *s, size_t len, void *data)
@@ -254,143 +254,143 @@ eout:
 
 int modbus_save_plc(char *file_path)
 {
-    FILE *fp;
+	FILE *fp;
 
-    fp = fopen(file_path, "wb");
-    if (!fp) {
-        fprintf(stderr, "Failed to write open file %s", file_path);
-        return -1;
-    }
+	fp = fopen(file_path, "wb");
+	if (!fp) {
+		fprintf(stderr, "Failed to write open file %s", file_path);
+		return -1;
+	}
 
-    /* put title */
-    put_string(fp, "identifier");
-    put_string(fp, "address");
-    put_string(fp, "label");
-    put_string(fp, "slaveid");
-    put_newline(fp);
+	/* put title */
+	put_string(fp, "identifier");
+	put_string(fp, "address");
+	put_string(fp, "label");
+	put_string(fp, "slaveid");
+	put_newline(fp);
 
-    /* put record */
-    for (size_t i = 0; g_plc_output[i].identifier[0]; i++)
-    {
-        put_string(fp, g_plc_output[i].identifier);
-        put_uint_hex(fp, g_plc_output[i].address);
-        put_string(fp, g_plc_output[i].label);
-        put_uint_dec(fp, g_plc_output[i].slaveid);
-        put_newline(fp);
-    }
+	/* put record */
+	for (size_t i = 0; g_plc_output[i].identifier[0]; i++) {
+		put_string(fp, g_plc_output[i].identifier);
+		put_uint_hex(fp, g_plc_output[i].address);
+		put_string(fp, g_plc_output[i].label);
+		put_uint_dec(fp, g_plc_output[i].slaveid);
+		put_newline(fp);
+	}
 
-    fclose(fp);
-    return 0;
+	fclose(fp);
+	return 0;
 }
 
 int modbus_plc_get(char *payload, char *msg, int msg_len)
 {
-    int found = 0;
-    cJSON *resp_root = NULL;
-    cJSON *req_json_obj = NULL;
-    cJSON *array = NULL, *obj = NULL;
-    char *cj_identifier = NULL;	
+	int found = 0;
+	cJSON *resp_root = NULL;
+	cJSON *req_json_obj = NULL;
+	cJSON *array = NULL, *obj = NULL;
+	char *cj_identifier = NULL;	
 	
-    //fprintf(stderr, "modbus_plc_get %s", payload);
+	//fprintf(stderr, "modbus_plc_get %s", payload);
 
-    req_json_obj = cJSON_Parse(payload);
-    resp_root = cJSON_CreateObject();
+	req_json_obj = cJSON_Parse(payload);
+	resp_root = cJSON_CreateObject();
 
-    if (req_json_obj)
-        cj_identifier = json_get_char(req_json_obj, "identifier");
+	if (req_json_obj)
+		cj_identifier = json_get_char(req_json_obj, "identifier");
 
-    if (cj_identifier) {
-        if (strcmp(cj_identifier, "all") == 0) {
-            cJSON_AddNumberToObject(resp_root, "code", 0);
-            cJSON_AddItemToObject(resp_root,"all",array = cJSON_CreateArray()); 
-            for (size_t i = 0; g_plc_output[i].identifier[0]; i++) {
-                cJSON_AddItemToArray(array, obj = cJSON_CreateObject());
-                cJSON_AddStringToObject(obj, "identifier", g_plc_output[i].identifier);
-                cJSON_AddStringToObject(obj, "address", utoa_hex(g_plc_output[i].address));
-                cJSON_AddStringToObject(obj, "label", g_plc_output[i].label);
-                cJSON_AddNumberToObject(obj, "slaveid", g_plc_output[i].slaveid);
-            }			
-            found = 1;
-        } else {
-            for (size_t i = 0; g_plc_output[i].identifier[0]; i++) {
-                if (strncmp(g_plc_output[i].identifier, cj_identifier, sizeof(g_plc_output[i].identifier)-1) == 0) {
-                    cJSON_AddNumberToObject(resp_root, "code", 0);
-                    cJSON_AddStringToObject(resp_root, "identifier", g_plc_output[i].identifier);
-                    cJSON_AddStringToObject(resp_root, "address", utoa_hex(g_plc_output[i].address));
-                    cJSON_AddStringToObject(resp_root, "label", g_plc_output[i].label);
-                    cJSON_AddNumberToObject(resp_root, "slaveid", g_plc_output[i].slaveid);
-                    found = 1;
-                    break;
-                }
-            }
-        }
-    }
+	if (cj_identifier) {
+		if (strcmp(cj_identifier, "all") == 0) {
+			cJSON_AddNumberToObject(resp_root, "code", 0);
+			cJSON_AddItemToObject(resp_root,"all",array = cJSON_CreateArray()); 
 
-    if (!found) {
-        cJSON_AddNumberToObject(resp_root, "code", -1);
-        cJSON_AddStringToObject(resp_root, "msg", "Invalid identifier");
-    }
+			for (size_t i = 0; g_plc_output[i].identifier[0]; i++) {
+				cJSON_AddItemToArray(array, obj = cJSON_CreateObject());
+				cJSON_AddStringToObject(obj, "identifier", g_plc_output[i].identifier);
+				cJSON_AddStringToObject(obj, "address", utoa_hex(g_plc_output[i].address));
+				cJSON_AddStringToObject(obj, "label", g_plc_output[i].label);
+				cJSON_AddNumberToObject(obj, "slaveid", g_plc_output[i].slaveid);
+			}			
+			found = 1;
+		} else {
+			for (size_t i = 0; g_plc_output[i].identifier[0]; i++) {
+				if (strncmp(g_plc_output[i].identifier, cj_identifier, sizeof(g_plc_output[i].identifier)-1) == 0) {
+					cJSON_AddNumberToObject(resp_root, "code", 0);
+					cJSON_AddStringToObject(resp_root, "identifier", g_plc_output[i].identifier);
+					cJSON_AddStringToObject(resp_root, "address", utoa_hex(g_plc_output[i].address));
+					cJSON_AddStringToObject(resp_root, "label", g_plc_output[i].label);
+					cJSON_AddNumberToObject(resp_root, "slaveid", g_plc_output[i].slaveid);
+					found = 1;
+					break;
+				}
+			}
+		}
+	}
 
-    cj_identifier = cJSON_PrintUnformatted(resp_root);
-    //fprintf(stderr, "resp %s\n", cj_identifier);
-    strncpy(msg, cj_identifier, msg_len-1);
-    cJSON_Delete(resp_root);
+	if (!found) {
+		cJSON_AddNumberToObject(resp_root, "code", -1);
+		cJSON_AddStringToObject(resp_root, "msg", "Invalid identifier");
+	}
 
-    return 0;
+	cj_identifier = cJSON_PrintUnformatted(resp_root);
+	//fprintf(stderr, "resp %s\n", cj_identifier);
+	strncpy(msg, cj_identifier, msg_len-1);
+	cJSON_Delete(resp_root);
+
+	return 0;
 }
 
 int modbus_plc_put(char *payload, char *msg, int msg_len)
 {
-    int found = 0;
-    cJSON *resp_root = NULL;
-    cJSON *req_json_obj = NULL;
-    char *cj_identifier = NULL;	
-    char *cj_address = NULL;	
-    char *cj_label = NULL;	
-    int address = 0;	
-    int slaveid = 0;	
+	int found = 0;
+	cJSON *resp_root = NULL;
+	cJSON *req_json_obj = NULL;
+	char *cj_identifier = NULL;	
+	char *cj_address = NULL;	
+	char *cj_label = NULL;	
+	int address = 0;	
+	int slaveid = 0;	
 	
-    //fprintf(stderr, "modbus_plc_put %s", payload);
+	//fprintf(stderr, "modbus_plc_put %s", payload);
 
-    req_json_obj = cJSON_Parse(payload);
-    resp_root = cJSON_CreateObject();
+	req_json_obj = cJSON_Parse(payload);
+	resp_root = cJSON_CreateObject();
 
-    if (req_json_obj) {
-        cj_identifier = json_get_char(req_json_obj, "identifier");
-        cj_label = json_get_char(req_json_obj, "label");
-        cj_address = json_get_char(req_json_obj, "address");
-        if (cj_address)
-	    address = hex2int(cj_address, strlen(cj_address));
-        slaveid = json_get_int(req_json_obj, "slaveid");
-    }
+	if (req_json_obj) {
+		cj_identifier = json_get_char(req_json_obj, "identifier");
+		cj_label = json_get_char(req_json_obj, "label");
+		cj_address = json_get_char(req_json_obj, "address");
+		if (cj_address)
+			address = hex2int(cj_address, strlen(cj_address));
+		slaveid = json_get_int(req_json_obj, "slaveid");
+	}
 
-    if (cj_identifier && cj_label && address && slaveid) {
-        for (size_t i = 0; g_plc_output[i].identifier[0]; i++) {
-            if (strncmp(g_plc_output[i].identifier, cj_identifier, sizeof(g_plc_output[i].identifier)-1) == 0) {
-                strncpy(g_plc_output[i].label, cj_label, sizeof(g_plc_output[i].label)-1);				
-                g_plc_output[i].address = address;
-                g_plc_output[i].slaveid = slaveid;
+	if (cj_identifier && cj_label && address && slaveid) {
+		for (size_t i = 0; g_plc_output[i].identifier[0]; i++) {
+			if (strncmp(g_plc_output[i].identifier, cj_identifier, sizeof(g_plc_output[i].identifier)-1) == 0) {
+				strncpy(g_plc_output[i].label, cj_label, sizeof(g_plc_output[i].label)-1);				
+				g_plc_output[i].address = address;
+				g_plc_output[i].slaveid = slaveid;
 
-                cJSON_AddNumberToObject(resp_root, "code", 0);
-                cJSON_AddStringToObject(resp_root, "identifier", g_plc_output[i].identifier);
-                cJSON_AddStringToObject(resp_root, "address", utoa_hex(g_plc_output[i].address));
-                cJSON_AddStringToObject(resp_root, "label", g_plc_output[i].label);
-                cJSON_AddNumberToObject(resp_root, "slaveid", g_plc_output[i].slaveid);
-                found = 1;
-                break;
-            }
-        }
-    }
+				cJSON_AddNumberToObject(resp_root, "code", 0);
+				cJSON_AddStringToObject(resp_root, "identifier", g_plc_output[i].identifier);
+				cJSON_AddStringToObject(resp_root, "address", utoa_hex(g_plc_output[i].address));
+				cJSON_AddStringToObject(resp_root, "label", g_plc_output[i].label);
+				cJSON_AddNumberToObject(resp_root, "slaveid", g_plc_output[i].slaveid);
+				found = 1;
+				break;
+			}
+		}
+	}
 
-    if (!found) {
-        cJSON_AddNumberToObject(resp_root, "code", -1);
-        cJSON_AddStringToObject(resp_root, "msg", "Invalid identifier");
-    }
+	if (!found) {
+		cJSON_AddNumberToObject(resp_root, "code", -1);
+		cJSON_AddStringToObject(resp_root, "msg", "Invalid identifier");
+	}
 
-    cj_identifier = cJSON_PrintUnformatted(resp_root);
-    //fprintf(stderr, "resp %s\n", cj_identifier);
-    strncpy(msg, cj_identifier, msg_len-1);
-    cJSON_Delete(resp_root);
-    return 0;
+	cj_identifier = cJSON_PrintUnformatted(resp_root);
+	//fprintf(stderr, "resp %s\n", cj_identifier);
+	strncpy(msg, cj_identifier, msg_len-1);
+	cJSON_Delete(resp_root);
+	return 0;
 }
 

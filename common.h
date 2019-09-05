@@ -41,17 +41,17 @@ enum {
 };
 
 enum {
-    MODBUS_TYPE_RTU = 0,
-    MODBUS_TYPE_TCP = 1,
+	MODBUS_TYPE_RTU = 0,
+	MODBUS_TYPE_TCP = 1,
 };
 
 typedef struct
 {
-    char identifier[32];
-    int slaveid;
-    int address;
-    char label[32];
-    bool status;
+	char identifier[32];
+	int slaveid;
+	int address;
+	char label[32];
+	bool status;
 
 } plc_output_t;
 
